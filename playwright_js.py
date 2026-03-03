@@ -7,7 +7,7 @@ with sync_playwright() as playwright:
     """Ждем, когда загрузится страница"""
     page.goto("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/login", wait_until="networkidle")
 
-    """Запускаем скрипты - первый способ"""
+    """Запускаем скрипты - первый способ через строку"""
     #text='New Text'
     #page.evaluate(
     #    """
