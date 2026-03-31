@@ -2,19 +2,32 @@ import pytest
 from playwright.sync_api import sync_playwright, expect, Page
 from pages.courses_list_page import CoursesListPage
 from pages.create_course_page import CreateCoursePage
+from pages.empty_courses_list_page import EmptyCoursesListPage
 
 @pytest.mark.courses
 @pytest.mark.regression
-def test_empty_courses_list(chromium_page_with_state: Page):
-    chromium_page_with_state.goto("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses")
-    title = chromium_page_with_state.get_by_test_id('courses-list-toolbar-title-text')
-    expect(title).to_have_text("Courses")
-    icon = chromium_page_with_state.get_by_test_id('courses-list-empty-view-icon')
-    expect(icon).to_be_visible()
-    text1 = chromium_page_with_state.get_by_test_id('courses-list-empty-view-title-text')
-    expect(text1).to_have_text("There is no results")
-    text2 = chromium_page_with_state.get_by_test_id('courses-list-empty-view-description-text')
-    expect(text2).to_have_text("Results from the load test pipeline will be displayed here")
+def test_empty_courses_list(empty_courses_list_page_with_state: EmptyCoursesListPage):
+    #chromium_page_with_state.goto("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses")
+    #title = chromium_page_with_state.get_by_test_id('courses-list-toolbar-title-text')
+    #expect(title).to_have_text("Courses")
+    #icon = chromium_page_with_state.get_by_test_id('courses-list-empty-view-icon')
+    #expect(icon).to_be_visible()
+    #text1 = chromium_page_with_state.get_by_test_id('courses-list-empty-view-title-text')
+    #expect(text1).to_have_text("There is no results")
+    #text2 = chromium_page_with_state.get_by_test_id('courses-list-empty-view-description-text')
+    #expect(text2).to_have_text("Results from the load test pipeline will be displayed here")
+    empty_courses_list_page_with_state.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses")
+
+    empty_courses_list_page_with_state.navbar.check_visible('username')
+    empty_courses_list_page_with_state.sidebar.check_visible('Logout')
+    empty_courses_list_page_with_state.sidebar.check_visible('Courses')
+    empty_courses_list_page_with_state.sidebar.check_visible('Dashboard')
+
+    empty_courses_list_page_with_state.check_visible_courses_title()
+    empty_courses_list_page_with_state.check_visible_view_icon()
+    empty_courses_list_page_with_state.check_visible_view_title()
+    empty_courses_list_page_with_state.check_visible_view_description()
+    empty_courses_list_page_with_state.check_visible_view_create_button()
 
 @pytest.mark.courses
 @pytest.mark.regression
