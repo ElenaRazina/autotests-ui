@@ -36,15 +36,18 @@ def test_empty_courses_list(empty_courses_list_page_with_state: EmptyCoursesList
 @pytest.mark.courses
 @pytest.mark.regression
 def test_create_course_page_default_state(create_course_page: CreateCoursePage,courses_list_page: CoursesListPage):
+
     #create_course_page = CreateCoursePage(chromium_page_with_state)
     #chromium_page_with_state.goto("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses/create")
     create_course_page.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses/create")
 
     # Проверить наличие заголовка "Create course"
-    create_course_page.check_visible_create_course_title()
+    create_course_page.create_course_toolbar_view.check_visible_create_course_title()
+    #create_course_page.check_visible_create_course_title()
     
     # Проверить, что кнопка создания курса недоступна для нажатия
-    create_course_page.check_disabled_create_course_button()
+    create_course_page.create_course_toolbar_view.check_visible_create_course_button(is_create_course_disabled=True)
+    #create_course_page.check_disabled_create_course_button()
     
     # Убедиться, что отображается пустой блок для предпросмотра изображения
     #create_course_page.check_visible_image_preview_empty_view()
@@ -53,7 +56,8 @@ def test_create_course_page_default_state(create_course_page: CreateCoursePage,c
     create_course_page.image_upload_widget.check_visible(is_image_uploaded=False)
     
     # Проверить, что форма создания курса отображается и содержит значения по умолчанию
-    create_course_page.check_visible_create_course_form(
+    create_course_page.fill_create_course_form(
+    #create_course_page.check_visible_create_course_form(
         title="",
         estimated_time="",
         description="",
@@ -61,11 +65,12 @@ def test_create_course_page_default_state(create_course_page: CreateCoursePage,c
         min_score="0"
     )
     
-    # Проверить наличие заголовка "Exercises"
-    create_course_page.check_visible_exercises_title()
+    # Проверить наличие заголовка "Exercises" и кнопки создания задания
+    create_course_page.check_visible_exercises_toolbar_view()
+    #create_course_page.check_visible_exercises_title()
     
     # Проверить наличие кнопки создания задания
-    create_course_page.check_visible_create_exercise_button()
+    #create_course_page.check_visible_create_exercise_button()
     
     # Убедиться, что отображается блок с пустыми заданиями
     create_course_page.check_visible_exercises_empty_view()
@@ -79,10 +84,12 @@ def test_create_course_with_image_and_form(create_course_page: CreateCoursePage,
     create_course_page.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses/create")
     
     # Проверить наличие заголовка "Create course"
-    create_course_page.check_visible_create_course_title()
+    create_course_page.create_course_toolbar_view.check_visible_create_course_title()
+    #create_course_page.check_visible_create_course_title()
     
     # Проверить, что кнопка создания курса недоступна для нажатия
-    create_course_page.check_disabled_create_course_button()
+    create_course_page.create_course_toolbar_view.check_visible_create_course_button(is_create_course_disabled=True)
+    #create_course_page.check_disabled_create_course_button()
     
     # Убедиться, что отображается пустой блок для предпросмотра изображения
     #create_course_page.check_visible_image_preview_empty_view()
@@ -91,7 +98,8 @@ def test_create_course_with_image_and_form(create_course_page: CreateCoursePage,
     create_course_page.image_upload_widget.check_visible(is_image_uploaded=False)
     
     # Проверить, что форма создания курса отображается и содержит значения по умолчанию
-    create_course_page.check_visible_create_course_form(
+    create_course_page.fill_create_course_form(
+    #create_course_page.check_visible_create_course_form(
         title="",
         estimated_time="",
         description="",
@@ -99,11 +107,12 @@ def test_create_course_with_image_and_form(create_course_page: CreateCoursePage,
         min_score="0"
     )
     
-    # Проверить наличие заголовка "Exercises"
-    create_course_page.check_visible_exercises_title()
+    # Проверить наличие заголовка "Exercises" и кнопки создания задания
+    create_course_page.check_visible_exercises_toolbar_view()
+    #create_course_page.check_visible_exercises_title()
     
     # Проверить наличие кнопки создания задания
-    create_course_page.check_visible_create_exercise_button()
+    #create_course_page.check_visible_create_exercise_button()
     
     # Убедиться, что отображается блок с пустыми заданиями
     create_course_page.check_visible_exercises_empty_view()

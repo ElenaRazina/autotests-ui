@@ -1,5 +1,8 @@
 from playwright.sync_api import expect,Page
+
+from fixtures.pages import login_page
 from pages.login_page import LoginPage
+from components.authentication.login_form_component import LoginFormComponent
 import pytest
 
 @pytest.mark.parametrize(
@@ -15,10 +18,14 @@ import pytest
 def test_wrong_email_or_password_authorization1(login_page:LoginPage, email:str, password:str):
 #def test_wrong_email_or_password_authorization1(chromium_page:Page, email:str, password:str):
 #   login_page = LoginPage(chromium_page)
+
     login_page.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/login")
-    login_page.fill_login_form(email, password)
+    login_page.fill(email, password)
+    login_page.check_visible(email, password)
+    #login_page.fill_login_form(email, password)
     login_page.click_login_button()
     login_page.check_visible_wrong_email_or_password_alert()
+
 
     #код до использования Page Object
     #chromium_page.goto("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/login")

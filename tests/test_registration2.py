@@ -1,8 +1,8 @@
 from playwright.sync_api import Page, expect
 import pytest
 
-@pytest.mark.regression
-@pytest.mark.registration
+#@pytest.mark.regression
+#@pytest.mark.registration
 def test_successful_registration(chromium_page:Page):
 
         chromium_page.goto("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/registration")

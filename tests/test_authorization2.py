@@ -1,8 +1,8 @@
 from playwright.sync_api import expect,Page
 import pytest
 
-@pytest.mark.regression
-@pytest.mark.authorization
+#@pytest.mark.regression
+#@pytest.mark.authorization
 def test_wrong_email_or_password_authorization(chromium_page:Page):
         chromium_page.goto("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/login")
         """Проверяем, что поле заполнено значением user.name@gmail.com"""

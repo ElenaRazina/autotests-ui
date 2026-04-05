@@ -1,4 +1,4 @@
-form component.base_component import BaseComponent
+from components.base_component import BaseComponent
 from playwright.sync_api import expect
 
 class CreateCourseExerciseFormComponent(BaseComponent):
