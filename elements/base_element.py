@@ -6,7 +6,7 @@ class BaseElement:
         self.locator = locator
         self.name = name
 
-    def get_locator(self, **kwargs)->Locator:
+    def get_locator(self, nth: int=0, **kwargs)->Locator:
     # объект Locator для взаимодействия с элементом
         # Инициализирует объект локатора, подставляя динамические значения в локатор.
         locator = self.locator.format(**kwargs)
@@ -18,7 +18,7 @@ class BaseElement:
     # locator = self.locator.format(**kwargs) означает взять шаблон self.locator, подставить в него значения из kwargs,
     # сохранить результат в переменную locator.
         # Возвращаем объект локатора
-        return self.page.get_by_test_id(locator)
+        return self.page.get_by_test_id(locator).nth(nth)
  # эта строка берет уже готовую строку locator и передает ее в self.page.get_by_test_id(...)
  # get_by_test_id - метод для поиска элемента по атрибуту data-testid
  # Пример: element = BaseElement(page, "page-{index}-title", "Page Title")
@@ -31,15 +31,15 @@ class BaseElement:
 # Так делается, чтобы не писать много почти одинаковых локаторов вручную.
 # Функция def get_locator(self, **kwargs) позволяет динамически сформировать локатор
 
-    def click(self,**kwargs):
-        locator=self.get_locator(**kwargs)
+    def click(self, nth: int=0, **kwargs):
+        locator=self.get_locator(nth, **kwargs)
         locator.click()
 
-    def check_visible(self,**kwargs):
+    def check_visible(self, nth: int=0, **kwargs):
         locator=self.get_locator(**kwargs)
         expect(locator).to_be_visible()
 
-    def check_have_text(self, text:str, **kwargs):
+    def check_have_text(self, text:str, nth: int=0, **kwargs):
         locator=self.get_locator(**kwargs)
         expect(locator).to_have_text(text)
 
