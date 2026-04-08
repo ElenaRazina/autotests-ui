@@ -3,6 +3,7 @@ from components.base_component import BaseComponent
 from components.navigation.sidebar_list_item_component import SidebarListItemComponent
 import re
 
+
 class SidebarComponent(BaseComponent):
     def __init__(self, page: Page):
         super().__init__(page)

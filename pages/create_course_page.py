@@ -5,7 +5,7 @@ from components.views.empty_view_component import EmptyViewComponent
 from components.navigation.navbar_component import NavbarComponent
 from components.courses.courses_list_toolbar_view_component import CoursesListToolbarViewComponent
 from components.views.image_upload_widget_component import ImageUploadWidgetComponent
-from components.courses.create_course_exercise_form_component import CreateCourseExerciseFormComponent
+#from components.courses.create_course_exercise_form_component import CreateCourseExerciseFormComponent
 from components.courses.create_course_form_component import CreateCourseFormComponent
 from components.courses.CreateCourseToolbarViewComponent import CreateCourseToolbarViewComponent
 from components.courses.CreateCourseExercisesToolbarViewComponent import CreateCourseExercisesToolbarViewComponent
@@ -20,7 +20,7 @@ class CreateCoursePage(BasePage):
         self.exercises_empty_view = EmptyViewComponent(page,'create-course-exercises')
         self.toolbar_view = CoursesListToolbarViewComponent(page)
         self.image_upload_widget = ImageUploadWidgetComponent(page, 'create-course-preview')
-        self.create_course_exercise_form = CreateCourseExerciseFormComponent(page)
+        #self.create_course_exercise_form = CreateCourseExerciseFormComponent(page)
         self.create_course_form = CreateCourseFormComponent(page)
         self.create_course_toolbar_view = CreateCourseToolbarViewComponent(page)
         self.create_course_exercises_toolbar_view = CreateCourseExercisesToolbarViewComponent(page)
