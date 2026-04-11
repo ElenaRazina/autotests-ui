@@ -36,10 +36,10 @@ class BaseElement:
         locator.click()
 
     def check_visible(self, nth: int=0, **kwargs):
-        locator=self.get_locator(**kwargs)
+        locator=self.get_locator(nth, **kwargs)
         expect(locator).to_be_visible()
 
     def check_have_text(self, text:str, nth: int=0, **kwargs):
-        locator=self.get_locator(**kwargs)
+        locator=self.get_locator(nth, **kwargs)
         expect(locator).to_have_text(text)
 

@@ -1,10 +1,11 @@
 from components.base_component import BaseComponent
 from playwright.sync_api import Page, expect
 from components.views.empty_view_component import EmptyViewComponent
+from elements.file_input import FileInput
 from elements.icon import Icon
 from elements.text import Text
 from elements.button import Button
-from elements.input import Input
+from elements.file_input import FileInput
 
 class ImageUploadWidgetComponent(BaseComponent):
     def __init__(self, page: Page,identifier: str):
@@ -25,7 +26,7 @@ class ImageUploadWidgetComponent(BaseComponent):
         self.preview_image_upload_info_description=Text(page, f'{identifier}-image-upload-widget-info-description-text', 'Preview image upload info description')
         self.upload_button=Button(page, f'{identifier}-image-upload-widget-upload-button', 'Upload button')
         self.remove_button=Button(page, f'{identifier}-image-upload-widget-remove-button', 'Remove button')
-        self.upload_input=Input(page, f'{identifier}-image-upload-widget-input', 'Upload input')
+        self.upload_input=FileInput(page, f'{identifier}-image-upload-widget-input', 'Upload input')
 
 
     def check_visible(self, is_image_uploaded: bool = False):
