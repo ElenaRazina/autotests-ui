@@ -154,5 +154,67 @@ class TestCourses:
             max_score="100",
             min_score="10")
 
+    def test_edit_course(self, create_course_page: CreateCoursePage, courses_list_page: CoursesListPage):
+        # Open the create course page
+        create_course_page.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses/create")
+        
+        # Upload image for the course
+        create_course_page.image_upload_widget.upload_preview_image("./testdata/files/image1.png")
+        create_course_page.image_upload_widget.check_visible(is_image_uploaded=True)
+        
+        # Fill the course creation form with valid data
+        create_course_page.fill_create_course_form(
+            title="Python Programming",
+            estimated_time="4 weeks",
+            description="Complete Python programming course",
+            max_score="100",
+            min_score="10")
+        
+        # Click the create course button
+        create_course_page.click_create_course_button()
+        
+        # Navigate to courses list page
+        courses_list_page.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses")
+        
+        # Verify the created course card is displayed
+        courses_list_page.course_view.check_visible(
+            index=0,
+            title="Python Programming",
+            max_score="100",
+            min_score="10",
+            estimated_time="4 weeks")
+        
+        # Click on the course menu and then Edit button
+        courses_list_page.course_view.menu.click_edit(index=0)
+        
+        # Now we should be on the edit course page (same URL as create)
+        # Modify the course fields
+        create_course_page.fill_create_course_form(
+            title="Advanced Python Programming",
+            estimated_time="6 weeks",
+            description="Advanced Python programming with modern frameworks",
+            max_score="150",
+            min_score="20")
+        
+        # Save the changes
+        create_course_page.click_create_course_button()
+        
+        # Navigate back to courses list to verify updated course
+        courses_list_page.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses")
+        
+        # Verify the course card displays updated data
+        courses_list_page.course_view.check_visible(
+            index=0,
+            title="Advanced Python Programming",
+            max_score="150",
+            min_score="20",
+            estimated_time="6 weeks")
+
+
+
+
+
+
+
 
 
