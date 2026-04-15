@@ -14,6 +14,9 @@ from allure_commons.types import Severity
 @allure.epic(AllureEpics.LMS)
 @allure.feature(AllureFeatures.AUTHENTICATION)
 @allure.story(AllureStories.REGISTRATION)
+@allure.parent_suite(AllureEpics.LMS)
+@allure.suite(AllureFeatures.AUTHENTICATION)
+@allure.sub_suite(AllureStories.REGISTRATION)
 class TestSuccessfulRegistration:
     @allure.title("User registration with correct email, username and password")
     @allure.severity(Severity.CRITICAL)

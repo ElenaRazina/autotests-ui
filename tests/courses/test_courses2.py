@@ -15,6 +15,9 @@ from allure_commons.types import Severity
 @allure.epic(AllureEpics.LMS)
 @allure.feature(AllureFeatures.COURSES)
 @allure.story(AllureStories.COURSES)
+@allure.parent_suite(AllureEpics.LMS)
+@allure.suite(AllureFeatures.COURSES)
+@allure.sub_suite(AllureStories.COURSES)
 class TestCourses:
     @allure.title("Check displaying of empty courses list")
     @allure.severity(Severity.NORMAL)

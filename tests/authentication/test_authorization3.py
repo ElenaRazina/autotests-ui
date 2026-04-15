@@ -18,6 +18,9 @@ from allure_commons.types import Severity
 @allure.epic(AllureEpics.LMS)
 @allure.feature(AllureFeatures.AUTHENTICATION)
 @allure.story(AllureStories.AUTHORIZATION)
+@allure.parent_suite(AllureEpics.LMS)
+@allure.suite(AllureFeatures.AUTHENTICATION)
+@allure.sub_suite(AllureStories.AUTHORIZATION)
 class TestAuthorization:
     @allure.title("User login with correct email and password")
     @allure.tag(AllureTag.USER_LOGIN)
