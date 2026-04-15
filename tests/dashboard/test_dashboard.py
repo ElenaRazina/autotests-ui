@@ -1,9 +1,21 @@
 from pages.dashboard.dashboard_page import DashboardPage
 import pytest
+import allure
+from tools.allure.tags import AllureTag
+from tools.allure.epics import AllureEpics
+from tools.allure.features import AllureFeatures
+from tools.allure.stories import AllureStories
+from allure_commons.types import Severity
 
 @pytest.mark.dashboard
 @pytest.mark.regression
+@allure.tag(AllureTag.DASHBOARD, AllureTag.REGRESSION)
+@allure.epic(AllureEpics.LMS)
+@allure.feature(AllureFeatures.DASHBOARD)
+@allure.story(AllureStories.DASHBOARD)
 class TestDashboard:
+    @allure.title("Check displaying of Dashboard page")
+    @allure.severity(Severity.NORMAL)
     def test_dashboard_displaying(self,dashboard_page_with_state:DashboardPage):
         dashboard_page_with_state.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/dashboard")
         # Добавили проверку Navbar компонента на странице Dashboard

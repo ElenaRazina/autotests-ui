@@ -4,12 +4,12 @@ import pytest
 def test_smoke_case():
     assert 1+1==2
 
-@pytest.mark.regression
+#@pytest.mark.regression
 def test_regression_case():
     assert 2 * 2 == 4
 
 @pytest.mark.smoke
-@pytest.mark.regression
+#@pytest.mark.regression
 class TestSuite:
     @pytest.mark.smoke
     def test_case1(self):
@@ -19,7 +19,7 @@ class TestSuite:
         assert 2+2==4
 
 
-@pytest.mark.regression
+#@pytest.mark.regression
 class TestUserAuthentication:
 
     @pytest.mark.smoke
@@ -34,7 +34,7 @@ class TestUserAuthentication:
         pass
 
 @pytest.mark.smoke
-@pytest.mark.regression
+#@pytest.mark.regression
 @pytest.mark.critical
 def test_critical_login():
     pass
@@ -48,7 +48,7 @@ class TestUserInterface:
     def test_login_button(self):
         pass
 
-    @pytest.mark.regression
+    #@pytest.mark.regression
     def test_forgot_password_link(self):
         pass
 

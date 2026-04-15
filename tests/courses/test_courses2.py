@@ -2,10 +2,22 @@ import pytest
 from pages.courses.courses_list_page import CoursesListPage
 from pages.courses.create_course_page import CreateCoursePage
 from pages.courses.empty_courses_list_page import EmptyCoursesListPage
+import allure
+from tools.allure.tags import AllureTag
+from tools.allure.epics import AllureEpics
+from tools.allure.features import AllureFeatures
+from tools.allure.stories import AllureStories
+from allure_commons.types import Severity
 
 @pytest.mark.courses
 @pytest.mark.regression
+@allure.tag(AllureTag.COURSES, AllureTag.REGRESSION)
+@allure.epic(AllureEpics.LMS)
+@allure.feature(AllureFeatures.COURSES)
+@allure.story(AllureStories.COURSES)
 class TestCourses:
+    @allure.title("Check displaying of empty courses list")
+    @allure.severity(Severity.NORMAL)
     def test_empty_courses_list(self,empty_courses_list_page_with_state: EmptyCoursesListPage):
         #chromium_page_with_state.goto("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses")
         #title = chromium_page_with_state.get_by_test_id('courses-list-toolbar-title-text')
@@ -34,6 +46,8 @@ class TestCourses:
 
     #@pytest.mark.courses
     #@pytest.mark.regression
+    @allure.title("Check displaying of create course page in default state")
+    @allure.severity(Severity.CRITICAL)
     def test_create_course_page_default_state(self, create_course_page: CreateCoursePage,courses_list_page: CoursesListPage):
 
         #create_course_page = CreateCoursePage(chromium_page_with_state)
@@ -75,6 +89,8 @@ class TestCourses:
 
     #@pytest.mark.courses
     #@pytest.mark.regression
+    @allure.title("Check displaying of create course page with image and form")
+    @allure.severity(Severity.CRITICAL)
     def test_create_course_with_image_and_form(self, create_course_page: CreateCoursePage,courses_list_page: CoursesListPage):
         #create_course_page = CreateCoursePage(chromium_page_with_state)
         #courses_list_page = CoursesListPage(chromium_page_with_state)
@@ -154,6 +170,8 @@ class TestCourses:
             max_score="100",
             min_score="10")
 
+    @allure.title("Check to edit course")
+    @allure.severity(Severity.NORMAL)
     def test_edit_course(self, create_course_page: CreateCoursePage, courses_list_page: CoursesListPage):
         # Open the create course page
         create_course_page.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses/create")
