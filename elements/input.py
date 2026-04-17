@@ -1,19 +1,25 @@
 from playwright.sync_api import expect, Locator
 from elements.base_element import BaseElement
+import allure
 
 class Input(BaseElement):
+    @property
+    def type_of(self) -> str:
+        return 'input'
     # Переопределяем метод get_locator
     # через super() вызываем метод get_locator() из родительского класса BaseElement
     def get_locator(self, nth: int=0, **kwargs) ->Locator:
         return super().get_locator(nth, **kwargs).locator('input')
 
     def fill(self, value:str, nth:int=0, **kwargs):
-        locator = self.get_locator(nth, **kwargs)
-        locator.fill(value)
+        with allure.step(f'Fill {self.type_of} "{self.name}" to value "{value}"'):
+            locator = self.get_locator(nth, **kwargs)
+            locator.fill(value)
 
     def check_have_value(self, value:str, nth:int=0, **kwargs):
-        locator = self.get_locator(nth, **kwargs)
-        expect(locator).to_have_value(value)
+        with allure.step(f'Checking that {self.type_of} "{self.name}" has a value "{value}"'):
+            locator = self.get_locator(nth, **kwargs)
+            expect(locator).to_have_value(value)
 
     #def set_input_files(self, file: str, nth:int=0, **kwargs):
         # Для input элементов не нужно добавлять .locator('input'), так как элемент уже является input
