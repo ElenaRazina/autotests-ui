@@ -5,9 +5,7 @@ from _pytest.fixtures import SubRequest
 #from allure_commons.types import AttachmentType
 import allure
 from tools.playwright.pages import initialize_playwright_page
-
-
-
+from config import settings
 
 #@pytest.fixture
 #def chromium_page() ->Page:
@@ -40,7 +38,7 @@ def initialize_browser_state(playwright: Playwright)->None:
 
     registration_page = RegistrationPage(page=page)
     registration_page.visit('https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/registration')
-    registration_page.registration_form.fill(email='user.name@gmail.com', username='username', password='password')
+    registration_page.registration_form.fill(email=settings.test_user.email, username=settings.test_user.username, password=settings.test_user.password)
     registration_page.click_registration_button()
 
     #page.goto('https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/registration')
@@ -53,13 +51,13 @@ def initialize_browser_state(playwright: Playwright)->None:
     #registration_button = page.get_by_test_id('registration-page-registration-button')
     #registration_button.click()
 
-    context.storage_state(path='browser-state-3.json')
+    context.storage_state(path=settings.browser_state_file)
     browser.close()
 
 
 @pytest.fixture
 def chromium_page_with_state(request: SubRequest, initialize_browser_state, playwright: Playwright) -> Page:
-    yield from initialize_playwright_page(playwright,test_name=request.node.name,storage_state="browser-state-3.json")
+    yield from initialize_playwright_page(playwright,test_name=request.node.name,storage_state=settings.browser_state_file)
     #browser = playwright.chromium.launch(headless=False)
     #context = browser.new_context(storage_state='browser-state-3.json',record_video_dir='./videos')
     #context.tracing.start(

@@ -1,6 +1,7 @@
 import allure
 from playwright.sync_api import Playwright, Page
 from allure_commons.types import AttachmentType
+from config import settings
 
 
 def initialize_playwright_page(
@@ -19,12 +20,12 @@ def initialize_playwright_page(
     Yields:
         Page: Playwright page instance
     """
-    browser = playwright.chromium.launch(headless=False)
+    browser = playwright.chromium.launch(headless=settings.headless)
     
     # Use storage_state parameter properly
     context = browser.new_context(
         storage_state=storage_state, 
-        record_video_dir='./videos'
+        record_video_dir=settings.videos_dir
     )
     
     context.tracing.start(screenshots=True, snapshots=True, sources=True)
@@ -37,7 +38,7 @@ def initialize_playwright_page(
         yield page
     finally:
         # Stop tracing and close browser safely
-        context.tracing.stop(path=f'./tracing/{test_name}.zip')
+        context.tracing.stop(path=settings.tracing_dir.joinpath(f'{test_name}.zip'))
         
         # Get video path safely before closing browser
         try:
@@ -50,7 +51,7 @@ def initialize_playwright_page(
         # Attach trace file
         try:
             allure.attach.file(
-                f'./tracing/{test_name}.zip',
+                settings.tracing_dir.joinpath(f'{test_name}.zip'),
                 name='trace',
                 extension='zip'
             )
