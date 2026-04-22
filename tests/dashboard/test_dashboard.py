@@ -6,6 +6,7 @@ from tools.allure.epics import AllureEpics
 from tools.allure.features import AllureFeatures
 from tools.allure.stories import AllureStories
 from allure_commons.types import Severity
+from tools.routes import AppRoute
 
 @pytest.mark.dashboard
 @pytest.mark.regression
@@ -20,7 +21,8 @@ class TestDashboard:
     @allure.title("Check displaying of Dashboard page")
     @allure.severity(Severity.NORMAL)
     def test_dashboard_displaying(self,dashboard_page_with_state:DashboardPage):
-        dashboard_page_with_state.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/dashboard")
+        #dashboard_page_with_state.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/dashboard")
+        dashboard_page_with_state.visit(AppRoute.DASHBOARD)
         # Добавили проверку Navbar компонента на странице Dashboard
         dashboard_page_with_state.check_visible_navbar()
         dashboard_page_with_state.check_visible_sidebar()

@@ -1,4 +1,6 @@
 import pytest
+
+from config import settings
 from pages.courses.courses_list_page import CoursesListPage
 from pages.courses.create_course_page import CreateCoursePage
 from pages.courses.empty_courses_list_page import EmptyCoursesListPage
@@ -8,6 +10,7 @@ from tools.allure.epics import AllureEpics
 from tools.allure.features import AllureFeatures
 from tools.allure.stories import AllureStories
 from allure_commons.types import Severity
+from tools.routes import AppRoute
 
 @pytest.mark.courses
 @pytest.mark.regression
@@ -31,8 +34,8 @@ class TestCourses:
         #expect(text1).to_have_text("There is no results")
         #text2 = chromium_page_with_state.get_by_test_id('courses-list-empty-view-description-text')
         #expect(text2).to_have_text("Results from the load test pipeline will be displayed here")
-        empty_courses_list_page_with_state.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses")
-
+        #empty_courses_list_page_with_state.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses")
+        empty_courses_list_page_with_state.visit(AppRoute.COURSES)
         empty_courses_list_page_with_state.navbar.check_visible('username')
         empty_courses_list_page_with_state.sidebar.check_visible('Logout')
         empty_courses_list_page_with_state.sidebar.check_visible('Courses')
@@ -55,8 +58,8 @@ class TestCourses:
 
         #create_course_page = CreateCoursePage(chromium_page_with_state)
         #chromium_page_with_state.goto("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses/create")
-        create_course_page.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses/create")
-
+        #create_course_page.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses/create")
+        create_course_page.visit(AppRoute.CREATE_COURSE)
         # Проверить наличие заголовка "Create course"
         create_course_page.create_course_toolbar_view.check_visible_create_course_title()
         #create_course_page.check_visible_create_course_title()
@@ -98,8 +101,9 @@ class TestCourses:
         #create_course_page = CreateCoursePage(chromium_page_with_state)
         #courses_list_page = CoursesListPage(chromium_page_with_state)
     
-        create_course_page.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses/create")
-    
+        #create_course_page.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses/create")
+        create_course_page.visit(AppRoute.CREATE_COURSE)
+
         # Проверить наличие заголовка "Create course"
         create_course_page.create_course_toolbar_view.check_visible_create_course_title()
         #create_course_page.check_visible_create_course_title()
@@ -134,7 +138,8 @@ class TestCourses:
         create_course_page.check_visible_exercises_empty_view()
     
         # Загрузить изображение для превью курса
-        create_course_page.image_upload_widget.upload_preview_image("./testdata/files/image.png")
+        #create_course_page.image_upload_widget.upload_preview_image("./testdata/files/image.png")
+        create_course_page.image_upload_widget.upload_preview_image(settings.test_data.image_png_file)
     
         # Убедиться, что блок загрузки изображения отображает состояние, когда картинка успешно загружена
         create_course_page.image_upload_widget.check_visible(is_image_uploaded=True)
@@ -177,10 +182,11 @@ class TestCourses:
     @allure.severity(Severity.NORMAL)
     def test_edit_course(self, create_course_page: CreateCoursePage, courses_list_page: CoursesListPage):
         # Open the create course page
-        create_course_page.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses/create")
-        
+        #create_course_page.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses/create")
+        create_course_page.visit(AppRoute.CREATE_COURSE)
         # Upload image for the course
-        create_course_page.image_upload_widget.upload_preview_image("./testdata/files/image1.png")
+        #create_course_page.image_upload_widget.upload_preview_image("./testdata/files/image1.png")
+        create_course_page.image_upload_widget.upload_preview_image(settings.test_data.image_png_file)
         create_course_page.image_upload_widget.check_visible(is_image_uploaded=True)
         
         # Fill the course creation form with valid data
@@ -195,8 +201,8 @@ class TestCourses:
         create_course_page.click_create_course_button()
         
         # Navigate to courses list page
-        courses_list_page.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses")
-        
+        #courses_list_page.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses")
+        courses_list_page.visit(AppRoute.COURSES)
         # Verify the created course card is displayed
         courses_list_page.course_view.check_visible(
             index=0,
@@ -221,8 +227,8 @@ class TestCourses:
         create_course_page.click_create_course_button()
         
         # Navigate back to courses list to verify updated course
-        courses_list_page.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses")
-        
+        #courses_list_page.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses")
+        courses_list_page.visit(AppRoute.COURSES)
         # Verify the course card displays updated data
         courses_list_page.course_view.check_visible(
             index=0,

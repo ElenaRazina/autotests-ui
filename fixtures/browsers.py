@@ -6,6 +6,7 @@ from _pytest.fixtures import SubRequest
 import allure
 from tools.playwright.pages import initialize_playwright_page
 from config import settings
+from tools.routes import AppRoute
 
 #@pytest.fixture
 #def chromium_page() ->Page:
@@ -16,9 +17,9 @@ from config import settings
 
 #После установки плагина pytest-playwrigt можно использовать встроенную фикстуру, которая позволит создать объект Page
 #Для этого не будет нужен модуль sync_playwright
-@pytest.fixture
-def chromium_page(request: SubRequest, playwright: Playwright)->Page:
-    yield from initialize_playwright_page(playwright, test_name=request.node.name)
+@pytest.fixture (params=settings.browser)
+def page(request: SubRequest, playwright: Playwright)->Page:
+    yield from initialize_playwright_page(playwright, test_name=request.node.name, browser_type=request.param)
     #browser=playwright.chromium.launch(headless=False)
     #context=browser.new_context(record_video_dir='./videos')
     #context = browser.new_context()
@@ -33,11 +34,12 @@ def chromium_page(request: SubRequest, playwright: Playwright)->Page:
 @pytest.fixture
 def initialize_browser_state(playwright: Playwright)->None:
     browser=playwright.chromium.launch(headless=False)
-    context = browser.new_context()
+    context = browser.new_context(base_url=settings.get_base_url())
     page = context.new_page()
 
     registration_page = RegistrationPage(page=page)
-    registration_page.visit('https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/registration')
+    #registration_page.visit('https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/registration')
+    registration_page.visit(AppRoute.REGISTRATION)
     registration_page.registration_form.fill(email=settings.test_user.email, username=settings.test_user.username, password=settings.test_user.password)
     registration_page.click_registration_button()
 
@@ -55,9 +57,9 @@ def initialize_browser_state(playwright: Playwright)->None:
     browser.close()
 
 
-@pytest.fixture
-def chromium_page_with_state(request: SubRequest, initialize_browser_state, playwright: Playwright) -> Page:
-    yield from initialize_playwright_page(playwright,test_name=request.node.name,storage_state=settings.browser_state_file)
+@pytest.fixture(params=settings.browser)
+def page_with_state(request: SubRequest, initialize_browser_state, playwright: Playwright) -> Page:
+    yield from initialize_playwright_page(playwright,test_name=request.node.name,storage_state=settings.browser_state_file, browser_type=request.param)
     #browser = playwright.chromium.launch(headless=False)
     #context = browser.new_context(storage_state='browser-state-3.json',record_video_dir='./videos')
     #context.tracing.start(

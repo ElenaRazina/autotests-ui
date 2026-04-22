@@ -8,30 +8,30 @@ from pages.courses.create_course_page import CreateCoursePage
 from pages.courses.empty_courses_list_page import EmptyCoursesListPage
 
 @pytest.fixture
-def login_page(chromium_page:Page)->LoginPage:
-    return LoginPage(chromium_page)
+def login_page(page:Page)->LoginPage:
+    return LoginPage(page)
 
 
 @pytest.fixture
-def registration_page(chromium_page:Page)->RegistrationPage:
-    return RegistrationPage(chromium_page)
+def registration_page(page:Page)->RegistrationPage:
+    return RegistrationPage(page)
 
 @pytest.fixture
-def dashboard_page(chromium_page:Page)->DashboardPage:
-    return DashboardPage(chromium_page)
+def dashboard_page(page:Page)->DashboardPage:
+    return DashboardPage(page)
 
 @pytest.fixture
-def dashboard_page_with_state(chromium_page_with_state:Page)->DashboardPage:
-    return DashboardPage(chromium_page_with_state)
+def dashboard_page_with_state(page_with_state:Page)->DashboardPage:
+    return DashboardPage(page_with_state)
 
 @pytest.fixture
-def courses_list_page(chromium_page_with_state:Page)->CoursesListPage:
-    return CoursesListPage(chromium_page_with_state)
+def courses_list_page(page_with_state:Page)->CoursesListPage:
+    return CoursesListPage(page_with_state)
 
 @pytest.fixture
-def create_course_page(chromium_page_with_state:Page)->CreateCoursePage:
-    return CreateCoursePage(chromium_page_with_state)
+def create_course_page(page_with_state:Page)->CreateCoursePage:
+    return CreateCoursePage(page_with_state)
 
 @pytest.fixture
-def empty_courses_list_page_with_state(chromium_page_with_state:Page)->EmptyCoursesListPage:
-    return EmptyCoursesListPage(chromium_page_with_state)
+def empty_courses_list_page_with_state(page_with_state:Page)->EmptyCoursesListPage:
+    return EmptyCoursesListPage(page_with_state)

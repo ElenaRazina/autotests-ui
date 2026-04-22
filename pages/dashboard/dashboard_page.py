@@ -1,3 +1,4 @@
+from config import settings
 from pages.base_page import BasePage
 from playwright.sync_api import Page, expect
 from components.navigation.navbar_component import NavbarComponent
@@ -35,7 +36,7 @@ class DashboardPage(BasePage):
         #self.scores_chart = page.get_by_test_id('scores-scatter-chart')
 
     def check_visible_navbar(self):
-        self.navbar.check_visible('username')
+        self.navbar.check_visible(settings.test_user.username)
 
     def check_visible_sidebar(self):
         self.sidebar.check_visible('logout')

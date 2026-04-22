@@ -1,3 +1,4 @@
+from config import settings
 from fixtures.pages import login_page
 from pages.authentication.login_page import LoginPage
 import pytest
@@ -11,6 +12,7 @@ from tools.allure.epics import AllureEpics
 from tools.allure.features import AllureFeatures
 from tools.allure.stories import AllureStories
 from allure_commons.types import Severity
+from tools.routes import AppRoute
 
 @pytest.mark.regression
 @pytest.mark.authorization
@@ -26,8 +28,10 @@ class TestAuthorization:
     @allure.tag(AllureTag.USER_LOGIN)
     @allure.severity(Severity.BLOCKER)
     def test_successful_authorization(self, dashboard_page:DashboardPage, registration_page:RegistrationPage, login_page:LoginPage):
-        registration_page.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/registration")
-        registration_page.registration_form.fill(email="user.name@gmail.com", password="password", username="username")
+        #registration_page.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/registration")
+        registration_page.visit(AppRoute.REGISTRATION)
+        #registration_page.registration_form.fill(email="user.name@gmail.com", password="password", username="username")
+        registration_page.registration_form.fill(email=settings.test_user.email, password=settings.test_user.password, username=settings.test_user.username)
         registration_page.click_registration_button()
         dashboard_page.dashboard_toolbar_view.check_visible()
         dashboard_page.navbar.check_visible('username')
@@ -36,7 +40,8 @@ class TestAuthorization:
 
         registration_page.page.wait_for_timeout(2000)
 
-        login_page.login_form.fill(email='user.name@gmail.com',password='password')
+        #login_page.login_form.fill(email='user.name@gmail.com',password='password')
+        login_page.fill(email=settings.test_user.email,password=settings.test_user.password)
         login_page.click_login_button()
 
         registration_page.page.wait_for_timeout(2000)
@@ -62,7 +67,8 @@ class TestAuthorization:
     @allure.severity(Severity.CRITICAL)
     def test_wrong_email_or_password_authorization1(self,login_page: LoginPage, email: str, password: str):
         #allure.dynamic.title(f"User login with wrong email or password: {email}")
-        login_page.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/login")
+        #login_page.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/login")
+        login_page.visit(AppRoute.LOGIN)
         login_page.fill(email, password)
         login_page.check_visible(email, password)
         # login_page.fill_login_form(email, password)
@@ -74,7 +80,8 @@ class TestAuthorization:
     @allure.tag(AllureTag.NAVIGATION)
     @allure.severity(Severity.NORMAL)
     def test_navigate_from_authorization_to_registration(self, login_page: LoginPage, registration_page: RegistrationPage):
-        login_page.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/login")
+        #login_page.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/login")
+        login_page.visit(AppRoute.LOGIN)
         login_page.click_registration_link()
         registration_page.check_current_url(re.compile(".*#/auth/registration"))
         registration_page.registration_form.check_visible(email="", username="", password="")
