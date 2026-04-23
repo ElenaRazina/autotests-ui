@@ -23,6 +23,7 @@ from tools.routes import AppRoute
 @allure.parent_suite(AllureEpics.LMS)
 @allure.suite(AllureFeatures.AUTHENTICATION)
 @allure.sub_suite(AllureStories.AUTHORIZATION)
+
 class TestAuthorization:
     @allure.title("User login with correct email and password")
     @allure.tag(AllureTag.USER_LOGIN)
@@ -53,7 +54,7 @@ class TestAuthorization:
         registration_page.page.wait_for_timeout(2000)
 
 
-
+    @pytest.mark.xdist_group(name="authorization-group")
     @pytest.mark.parametrize(
         "email, password",
         [
