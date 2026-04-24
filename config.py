@@ -3,10 +3,10 @@ from pydantic import EmailStr, FilePath, HttpUrl, DirectoryPath, BaseModel
 from enum import Enum
 from typing import Self
 
-class Browser(str,Enum):
-    WEBKIT='webkit'
-    CHROMIUM='chromium'
-    FIREFOX='firefox'
+class Browser(str, Enum):
+    WEBKIT = 'webkit'
+    CHROMIUM = 'chromium'
+    FIREFOX = 'firefox'
 
 class TestUser(BaseModel):
     username: str
@@ -28,12 +28,13 @@ class Settings(BaseSettings):
     allure_results_dir: DirectoryPath
     browser_state_file: FilePath
 
+
     @classmethod
-    def initialize(cls)->Self:
-        videos_dir=DirectoryPath('./videos')
-        tracing_dir=DirectoryPath('./tracing')
-        allure_results_dir=DirectoryPath('./allure-results')
-        browser_state_file=FilePath('browser-state-3.json')
+    def initialize(cls) -> Self:
+        videos_dir = DirectoryPath('./videos')
+        tracing_dir = DirectoryPath('./tracing')
+        allure_results_dir = DirectoryPath('./allure-results')
+        browser_state_file = FilePath('browser-state-3.json')
 
         videos_dir.mkdir(exist_ok=True)
         tracing_dir.mkdir(exist_ok=True)
@@ -45,9 +46,10 @@ class Settings(BaseSettings):
             videos_dir=videos_dir,
             tracing_dir=tracing_dir,
             allure_results_dir=allure_results_dir,
-            browser_state_file=browser_state_file)
+            browser_state_file=browser_state_file,
+        )
 
     def get_base_url(self) -> str:
         return f"{self.app_url}/"
 
-settings=Settings.initialize()
+settings = Settings.initialize()
