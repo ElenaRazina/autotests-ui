@@ -7,6 +7,8 @@ def create_allure_environment_file():
     items = [f"{key}={value}" for key, value in settings.model_dump().items()]
     # Добавляем информацию об операционной системе и версии Python
     items.append(f"os_info={platform.system()} {platform.release()}")
+    #platform.system() - возвращает название ОС
+    #platform.release() - возвращает версию ОС
     items.append(f"python_version={sys.version}")
     #settings.model_dump() вернет нам настройки из settings в формате словаря
     #{
