@@ -17,6 +17,7 @@ from tools.routes import AppRoute
 @allure.parent_suite(AllureEpics.LMS)
 @allure.suite(AllureFeatures.DASHBOARD)
 @allure.sub_suite(AllureStories.DASHBOARD)
+
 class TestDashboard:
     @allure.title("Check displaying of Dashboard page")
     @allure.severity(Severity.NORMAL)
