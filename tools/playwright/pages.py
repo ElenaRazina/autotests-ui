@@ -22,6 +22,7 @@ def initialize_playwright_page(
     Yields:
         Page: Playwright page instance
     """
+
     #browser = playwright.chromium.launch(headless=settings.headless)
     browser = playwright[browser_type].launch(headless=settings.headless)
     
