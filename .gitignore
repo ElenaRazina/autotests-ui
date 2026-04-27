@@ -3,7 +3,7 @@
 
 # python
 __pycache__
-venv
+.venv
 
 # allure
 allure-results
@@ -14,3 +14,6 @@ videos
 tracing
 *.html
 *.json
+
+#misc
+.env
