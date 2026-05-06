@@ -17,3 +17,11 @@ tracing
 
 #misc
 .env
+
+#coverage
+coverage.html
+coverage-results
+coverage-history.json
+coverage-report.json
+
+

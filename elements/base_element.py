@@ -1,6 +1,8 @@
 from playwright.sync_api import Page, Locator, expect
 import allure
 from tools.logger import get_logger
+from elements.ui_covrage import tracker
+from ui_coverage_tool import ActionType, SelectorType
 
 logger=get_logger("BASE_ELEMENT")
 
@@ -43,12 +45,28 @@ class BaseElement:
 # Так делается, чтобы не писать много почти одинаковых локаторов вручную.
 # Функция def get_locator(self, **kwargs) позволяет динамически сформировать локатор
 
+    def get_raw_locator(self, nth:int=0, **kwargs)->str:
+        return f"//*[@data-testid='{self.locator.format(**kwargs)}'][{nth+1}]"
+    #найти любой элемент (*), у которого есть атрибут data-testid такой-то с таким-то индексом
+
+    def track_coverage(self,action_type:ActionType, nth:int=0,**kwargs):
+        tracker.track_coverage(
+            selector=self.get_raw_locator(nth, **kwargs),
+            action_type=action_type,
+            selector_type=SelectorType.XPATH)
+
+
     def click(self, nth: int=0, **kwargs):
         step=f'Clicking {self.type_of} "{self.name}"'
         with allure.step(step):
             locator=self.get_locator(nth, **kwargs)
             logger.info(step) # логгер размещаем сразу перед действием
             locator.click()
+        #tracker.track_coverage(selecor=self.get_raw_locator(nth,**kwargs),
+        #                       action_type=ActionType.CLICK,
+        #                       selector_type=SelectorType.XPATH)
+
+        self.track_coverage(ActionType.CLICK, nth, **kwargs)
 
     def check_visible(self, nth: int=0, **kwargs):
         step=f'Checking that {self.type_of} "{self.name}" is visible'
@@ -57,10 +75,32 @@ class BaseElement:
             logger.info(step)
             expect(locator).to_be_visible()
 
+        #tracker.track_coverage(
+        #    selecor=self.get_raw_locator(
+        #        nth,
+        #        **kwargs),
+        #    action_type=ActionType.VISIBLE,
+        #    selector_type=SelectorType.XPATH)
+
+        self.track_coverage(
+            ActionType.VISIBLE,
+            nth, **kwargs)
+
     def check_have_text(self, text:str, nth: int=0, **kwargs):
         step=f'Checking that {self.type_of} "{self.name}" has text "{text}"'
         with allure.step(step):
             locator=self.get_locator(nth, **kwargs)
             logger.info(step)
             expect(locator).to_have_text(text)
+
+        #tracker.track_coverage(
+        #    selecor=self.get_raw_locator(
+        #        nth,
+        #        **kwargs),
+        #    action_type=ActionType.TEXT,
+        #    selector_type=SelectorType.XPATH)
+
+        self.track_coverage(
+            ActionType.TEXT,
+            nth, **kwargs)
 

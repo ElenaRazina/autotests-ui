@@ -50,6 +50,8 @@ class TestCourses:
         empty_courses_list_page_with_state.check_visible_view_description()
         #empty_courses_list_page_with_state.check_visible_view_create_button()
 
+        #allure.attach.file('index.html', attachment_type=allure.attachment_type.HTML)
+
     #@pytest.mark.courses
     #@pytest.mark.regression
     @allure.title("Check displaying of create course page in default state")

@@ -17,7 +17,7 @@ class TestData(BaseModel):
     image_png_file: FilePath
 
 class Settings(BaseSettings):
-    model_config = SettingsConfigDict(env_file='.env', env_file_encoding='utf-8', env_nested_delimiter='.')
+    model_config = SettingsConfigDict(extra='allow', env_file='.env', env_file_encoding='utf-8', env_nested_delimiter='.')
     app_url: HttpUrl
     headless: bool
     browser: list[Browser]
