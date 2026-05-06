@@ -39,7 +39,7 @@ jobs:
         run: |
           pytest -m regression --alluredir=allure-results --numprocesses 2  # Запускаем тесты, отмеченные как "regression", генерируем результаты для Allure
 
-      - name: Restore Coverage history
+      - name: Restore Coverage history #История покрытия восстанавливается из кеша, кеш хранит предыдущие данные между запусками workflow
         uses: actions/cache/restore@v5
         with:
          path: coverage-history.json
